@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H.M. Estiyak Ahmed Esti — Digital Marketer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A0A0B;
+    --bg-2: #131315;
+    --line: #232326;
+    --ink: #F3F2ED;
+    --ink-soft: #9A9A9E;
+    --lime: #D6FF3F;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--lime); color:#0A0A0B; }
+
+  .display{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:0.01em;
+    line-height:0.92;
+    text-transform:uppercase;
+  }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    mix-blend-mode:difference;
+  }
+  nav{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:26px 32px;
+  }
+  .logo{ font-family:'Bebas Neue'; font-size:1.4rem; letter-spacing:0.04em; color:var(--ink); }
+  .navlinks{ display:flex; gap:30px; }
+  .navlinks a{
+    font-size:0.78rem; font-weight:600; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--ink);
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{
+    opacity:0; transform:translateY(36px);
+    transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    height:100vh; min-height:640px;
+    display:flex; align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+    background-image:url('images/bike.jpg');
+    background-size:cover;
+    background-position:center 20%;
+    filter:grayscale(0.35) brightness(0.55);
+    transform:scale(1.08);
+    will-change:transform;
+  }
+  .hero-bg::after{ content:""; }
+  .hero-gradient{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,10,11,0.15) 0%, rgba(10,10,11,0.55) 60%, var(--bg) 100%);
+  }
+  .hero-content{
+    position:relative; z-index:2;
+    padding:0 32px 64px;
+    width:100%;
+  }
+  .hero-eyebrow{
+    font-size:0.8rem; font-weight:700; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--lime);
+    margin-bottom:14px;
+  }
+  h1.hero-title{
+    font-size:clamp(3.4rem, 11vw, 8.5rem);
+    color:var(--ink);
+  }
+  .hero-sub{
+    margin-top:22px;
+    max-width:520px;
+    font-size:1.05rem;
+    color:var(--ink-soft);
+  }
+  .scroll-cue{
+    position:absolute; bottom:28px; right:32px; z-index:2;
+    display:flex; align-items:center; gap:10px;
+    font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .scroll-cue .line{
+    width:1px; height:34px; background:var(--ink-soft);
+    position:relative; overflow:hidden;
+  }
+  .scroll-cue .line::after{
+    content:""; position:absolute; top:-100%; left:0; width:100%; height:100%;
+    background:var(--lime);
+    animation:cue 1.8s ease-in-out infinite;
+  }
+  @keyframes cue{ to{ top:100%; } }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:20px 0;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .marquee-track{
+    display:inline-flex;
+    animation:scroll-left 22s linear infinite;
+  }
+  .marquee-track span{
+    font-family:'Bebas Neue';
+    font-size:1.6rem;
+    letter-spacing:0.03em;
+    color:var(--ink-soft);
+    padding:0 26px;
+    display:inline-flex; align-items:center; gap:26px;
+  }
+  .marquee-track span em{ color:var(--lime); font-style:normal; }
+  .marquee-track span::after{ content:"—"; color:var(--line); margin-left:26px; }
+  @keyframes scroll-left{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:110px 0; }
+  .kicker{
+    display:flex; align-items:center; gap:14px;
+    font-size:0.78rem; font-weight:700; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--lime);
+    margin-bottom:26px;
+  }
+  .kicker::before{ content:""; width:34px; height:1px; background:var(--lime); }
+  h2.section-title{
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    max-width:14ch;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-layout{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:60px;
+    margin-top:50px;
+    align-items:start;
+  }
+  .about-layout p{
+    font-size:1.05rem;
+    color:var(--ink-soft);
+    margin-bottom:20px;
+    max-width:52ch;
+  }
+  .stat-list{ display:flex; flex-direction:column; }
+  .stat{
+    padding:22px 0;
+    border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:baseline;
+  }
+  .stat:last-child{ border-bottom:1px solid var(--line); }
+  .stat .num{ font-family:'Bebas Neue'; font-size:2.4rem; color:var(--lime); }
+  .stat .label{ font-size:0.82rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.06em; text-align:right; max-width:16ch; }
+
+  @media (max-width:820px){ .about-layout{ grid-template-columns:1fr; } }
+
+  /* ---------- WORK / GALLERY ---------- */
+  .work-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:24px;
+    margin-top:50px;
+  }
+  .work-card{
+    position:relative;
+    overflow:hidden;
+    background:var(--bg-2);
+    aspect-ratio:4/5;
+  }
+  .work-card img{
+    width:100%; height:100%; object-fit:cover;
+    display:block;
+    filter:grayscale(0.5) brightness(0.85);
+    transform:scale(1.02);
+    transition:transform .6s cubic-bezier(.2,.7,.2,1), filter .5s;
+  }
+  .work-card:hover img{ transform:scale(1.09); filter:grayscale(0) brightness(1); }
+  .work-tag{
+    position:absolute; left:20px; bottom:20px; z-index:2;
+    font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--ink);
+    background:rgba(10,10,11,0.55);
+    padding:8px 14px;
+    backdrop-filter:blur(4px);
+  }
+  @media (max-width:820px){ .work-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- SKILLS ---------- */
+  .skill-list{ margin-top:50px; }
+  .skill-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 0;
+    border-top:1px solid var(--line);
+    transition:padding-left .3s;
+  }
+  .skill-row:last-child{ border-bottom:1px solid var(--line); }
+  .skill-row:hover{ padding-left:14px; }
+  .skill-row:hover .skill-name{ color:var(--lime); }
+  .skill-name{
+    font-family:'Bebas Neue';
+    font-size:clamp(1.6rem, 3.4vw, 2.4rem);
+    transition:color .3s;
+  }
+  .skill-desc{
+    font-size:0.88rem; color:var(--ink-soft); max-width:36ch; text-align:right;
+  }
+  @media (max-width:720px){
+    .skill-row{ flex-direction:column; align-items:flex-start; gap:8px; }
+    .skill-desc{ text-align:left; }
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-cta{
+    text-align:center;
+    padding:130px 0 90px;
+  }
+  .contact-cta .kicker{ justify-content:center; }
+  .contact-cta .kicker::before{ display:none; }
+  h2.big-link{
+    font-size:clamp(2.6rem, 9vw, 6rem);
+    margin:20px 0 46px;
+  }
+  h2.big-link a{ color:var(--ink); border-bottom:2px solid transparent; transition:border-color .3s, color .3s; }
+  h2.big-link a:hover{ color:var(--lime); border-color:var(--lime); }
+  .contact-links{
+    display:flex; justify-content:center; gap:34px; flex-wrap:wrap;
+  }
+  .contact-links a{
+    font-size:0.85rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--ink-soft);
+    padding-bottom:4px;
+    border-bottom:1px solid transparent;
+    transition:color .3s, border-color .3s;
+  }
+  .contact-links a:hover{ color:var(--lime); border-color:var(--lime); }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:26px 32px;
+    display:flex; justify-content:space-between;
+    font-size:0.75rem; color:var(--ink-soft);
+    flex-wrap:wrap; gap:10px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{ animation:none; }
+    .scroll-cue .line::after{ animation:none; }
+    .hero-bg{ transform:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">H.E.A.</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Digital Marketer · IMBD Agency</div>
+    <h1 class="hero-title display">H.M. Estiyak<br>Ahmed Esti</h1>
+    <p class="hero-sub">BBA Marketing student, community strategist, and full-time digital marketer — building brand momentum online, one engaged audience at a time.</p>
+  </div>
+  <div class="scroll-cue"><div class="line"></div>Scroll</div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span><em>Digital Marketing</em>Community Management</span>
+    <span><em>CRM</em>Audience Engagement</span>
+    <span><em>Brand Strategy</em>Content &amp; Response</span>
+    <span><em>Digital Marketing</em>Community Management</span>
+    <span><em>CRM</em>Audience Engagement</span>
+    <span><em>Brand Strategy</em>Content &amp; Response</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">01 — About</div>
+      <h2 class="section-title display">Built on real<br>conversations</h2>
+    </div>
+    <div class="about-layout">
+      <div class="reveal">
+        <p>I'm currently working as a Digital Marketer at IMBD Agency, after spending a year and a half as Head Moderator &amp; Marketing Assistant for Bookpoint BD's student page — handling customer queries, leading a team of moderators, and keeping brand communication consistent across platforms.</p>
+        <p>I'm studying BBA in Marketing at North South University, and I'm drawn to the operational side of marketing: CRM systems, community moderation, and using AI-assisted workflows to keep engagement personal at scale.</p>
+      </div>
+      <div class="stat-list reveal">
+        <div class="stat"><span class="num">1.6</span><span class="label">Years hands-on in community &amp; marketing</span></div>
+        <div class="stat"><span class="num">2</span><span class="label">Languages — Bangla &amp; English, fluent</span></div>
+        <div class="stat"><span class="num">NSU</span><span class="label">BBA in Marketing, currently enrolled</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">02 — Frames</div>
+      <h2 class="section-title display">On &amp; off<br>the clock</h2>
+    </div>
+    <div class="work-grid">
+      <div class="work-card reveal">
+        <img src="images/car.jpg" alt="Estiyak Ahmed at night">
+        <div class="work-tag">After Hours</div>
+      </div>
+      <div class="work-card reveal">
+        <img src="images/train.jpg" alt="Estiyak Ahmed on the metro">
+        <div class="work-tag">In Transit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">03 — Skills</div>
+      <h2 class="section-title display">What I bring<br>to the table</h2>
+    </div>
+    <div class="skill-list">
+      <div class="skill-row reveal">
+        <div class="skill-name display">Sales &amp; Marketing</div>
+        <div class="skill-desc">Customer communication, promotional activity, and consumer behaviour understanding.</div>
+      </div>
+      <div class="skill-row reveal">
+        <div class="skill-name display">CRM &amp; Data</div>
+        <div class="skill-desc">Customer database management, communication tracking, and SPSS data handling.</div>
+      </div>
+      <div class="skill-row reveal">
+        <div class="skill-name display">Community Moderation</div>
+        <div class="skill-desc">Leading moderator teams and managing high-volume audience queries with a consistent brand tone.</div>
+      </div>
+      <div class="skill-row reveal">
+        <div class="skill-name display">Tools &amp; Office</div>
+        <div class="skill-desc">Word, Excel, PowerPoint, and accurate bilingual data entry in Bangla and English.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-cta">
+    <div class="kicker reveal">04 — Contact</div>
+    <h2 class="big-link display reveal">
+      <a href="mailto:contact.estiyak@gmail.com">Let's talk</a>
+    </h2>
+    <div class="contact-links reveal">
+      <a href="mailto:contact.estiyak@gmail.com">contact.estiyak@gmail.com</a>
+      <a href="tel:+8801798658735">01798658735</a>
+      <a href="https://www.linkedin.com/in/hmestiyakahmed" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 H.M. Estiyak Ahmed Esti</div>
+  <div>Dhaka, Bangladesh</div>
+</footer>
+
+<script>
+  // Scroll-reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Subtle parallax on hero image
+  const heroBg = document.getElementById('heroBg');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced){
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      const scale = 1.08 + Math.min(y, 600) * 0.00012;
+      heroBg.style.transform = `translateY(${y * 0.25}px) scale(${scale})`;
+    }, { passive:true });
+  }
+</script>
+
+</body>
+</html>
